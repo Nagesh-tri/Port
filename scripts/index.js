@@ -22,7 +22,6 @@ window.addEventListener('DOMContentLoaded', () => {
   if (toggleBtn) {
     toggleBtn.textContent = savedTheme === 'light' ? '☀️' : '🌙';
   }
-
   // Start fake loading bar
   const fill = document.getElementById("progress-fill");
   const percentText = document.getElementById("load-percent");
@@ -42,12 +41,16 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 // ========== Hide Loader on Window Load ========== //
+document.body.classList.add('no-scroll');// while loader is active
 window.addEventListener('load', () => {
   setTimeout(() => {
     const loader = document.getElementById("loader");
     if (loader) {
       loader.style.opacity = 0;
-      setTimeout(() => loader.style.display = "none", 500);
+      setTimeout(() => {
+        loader.style.display = "none";
+        document.body.classList.remove('no-scroll'); // unlock scroll when done
+      }, 500);
     }
   }, 500);
 });
